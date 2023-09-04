@@ -1,5 +1,7 @@
 # Bank Tech Test
 
+## TODO add how to use program instructions and how to run tests instructions
+
 # Specification
 
 ## Requirements

@@ -7,10 +7,17 @@ class Account {
 	}
 
 	deposit(amount, date) {
+		if (!date instanceof Date || isNaN(date)) {
+			throw new Error("Date must be provided as a date object");
+		}
+		if (typeof amount !== "number") {
+			throw new Error("amount must be a number");
+		}
 		if (amount > 0) {
 			this.balance += amount;
+			const dateString = this.dateStringFormatter(date);
 			const newTransaction = new Transaction(
-				date,
+				dateString,
 				amount.toFixed(2),
 				null,
 				this.balance.toFixed(2)
@@ -20,10 +27,22 @@ class Account {
 	}
 
 	withdraw(amount, date) {
+		if (!date instanceof Date || isNaN(date)) {
+			throw new Error("Date must be provided as a date object");
+		}
+		if (typeof amount !== "number") {
+			throw new Error("amount must be a number");
+		}
+		if (this.balance < amount) {
+			throw new Error(
+				"You do not have enough balance to make this withdrawal"
+			);
+		}
 		if (amount > 0) {
 			this.balance -= amount;
+			const dateString = this.dateStringFormatter(date);
 			const newTransaction = new Transaction(
-				date,
+				dateString,
 				null,
 				amount.toFixed(2),
 				this.balance.toFixed(2)
@@ -53,6 +72,11 @@ class Account {
 			}
 		});
 		return statement;
+	}
+
+	dateStringFormatter(date) {
+		const dateString = date.toLocaleString("en-GB");
+		return dateString.split(",")[0];
 	}
 }
 

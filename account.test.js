@@ -95,3 +95,17 @@ test("calling deposit or withdraw with amount that isnt a number throws an error
 		"amount must be a number"
 	);
 });
+
+test("validateDateAndAmount() throws error when date is not a date object", () => {
+	const myAccount = new Account();
+	expect(() => myAccount.validateDateAndAmount("05/09/2023", 200)).toThrow(
+		"Date must be provided as a date object"
+	);
+});
+
+test("validateDateAndAmount() throws error when amount is not a number", () => {
+	const myAccount = new Account();
+	expect(() =>
+		myAccount.validateDateAndAmount(new Date("2023-09-05"), "200")
+	).toThrow("amount must be a number");
+});

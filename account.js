@@ -61,6 +61,7 @@ class Account {
 				statement += stringTransaction;
 			}
 		});
+		console.log(statement);
 		return statement;
 	}
 

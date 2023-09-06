@@ -1,6 +1,56 @@
 # Bank Tech Test
 
-## TODO add how to use program instructions and how to run tests instructions
+# How to use the program
+
+## Prerequisites
+
+Node.js and npm
+
+## Installation
+
+```diff
+1. Clone this repository: `https://github.com/gmckz/bank_tech_test.git`
+
+2. Navigate to the project folder: `cd bank_tech_test`
+
+3. Install dependencies (this project has the jest testing library as a dependency): `npm install`
+```
+
+## Running the tests
+
+The program has been unit and integration tested using the jest testing library.
+To run the tests:
+
+```diff
+1. Navigate to the project folder: `cd bank_tech_test`
+2. `npm run test`
+```
+
+## Using the program in the REPL
+
+This program is designed to be used in the Node.js REPL from the terminal:
+
+```javascript
+// Start the Node.js REPL from the project folder
+$ node
+
+// Create an account
+const Account = require("./account");
+const myAccount = new Account();
+
+// Make a deposit. The deposit function takes 2 arguments: amount (number), date (a javascript Date object)
+myAccount.deposit(1000, new Date("2023-01-10"));
+myAccount.deposit(2000, new Date("2023-01-13"));
+
+// Make a withdrawal. The withdraw function takes 2 arguments: amount (number), date (a javascript Date object)
+myAccount.withdraw(500, new Date("2023-01-14"));
+
+// Print a statement of transactions
+myAccount.printStatement();
+```
+
+Screenshot of REPL
+![A screenshot of the program being used in the Node.js REPL to meet the acceptance criteria given in the specification](screenshot.png)
 
 # Specification
 
@@ -28,6 +78,8 @@ date || credit || debit || balance
 
 # Planning / Design
 
+I have used an object oriented approach to the design of this program. And strictly followed the TDD process while implementing it.
+
 ## User stories
 
 As a user
@@ -44,11 +96,11 @@ I want to be able to print a statement of my transactions
 
 ## Class design
 
-nouns: account, transaction history, statement, transactions
-verbs: deposit, withdraw, print
+-   nouns: account, transaction history, statement, transactions
+-   verbs: deposit, withdraw, print
 
-functions: deposit, withdraw, printStatement
-classes: account, transaction
+-   functions: deposit, withdraw, printStatement
+-   classes: account, transaction
 
 ![A diagram showing the properties of the Account and Transaction classes and their relation to eachother](classDiagram.png)
 

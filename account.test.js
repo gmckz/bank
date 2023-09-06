@@ -26,16 +26,18 @@ test("calling deposit(amount, date) adds the amount to the balance and adds a tr
 	expect(myAccount.transactions[0]).toBeInstanceOf(Transaction);
 });
 
-test("calling deposit(0) does not change the balance or add to the transactions array", () => {
+test("calling deposit(0) throws an error", () => {
 	const myAccount = new Account();
-	myAccount.deposit(0, new Date("2023-09-04"));
-	expect(myAccount.transactions.length).toBe(0);
+	expect(() => myAccount.deposit(0, new Date("2023-09-04"))).toThrow(
+		"Amount must be greater than 0"
+	);
 });
 
-test("calling deposit(-1) does not change the balance or add to the transactions array", () => {
+test("calling deposit(-1) throws an error", () => {
 	const myAccount = new Account();
-	myAccount.deposit(-1, new Date("2023-09-04"));
-	expect(myAccount.transactions.length).toBe(0);
+	expect(() => myAccount.deposit(-1, new Date("2023-09-04"))).toThrow(
+		"Amount must be greater than 0"
+	);
 });
 
 test("calling printStatement() when no transactions have been made returns the headers", () => {

@@ -8,17 +8,16 @@ class Account {
 
 	deposit(amount, date) {
 		this.validateDateAndAmount(date, amount);
-		if (amount > 0) {
-			this.balance += amount;
-			const dateString = this.dateStringFormatter(date);
-			const newTransaction = new Transaction(
-				dateString,
-				amount.toFixed(2),
-				null,
-				this.balance.toFixed(2)
-			);
-			this.transactions.push(newTransaction);
-		}
+
+		this.balance += amount;
+		const dateString = this.dateStringFormatter(date);
+		const newTransaction = new Transaction(
+			dateString,
+			amount.toFixed(2),
+			null,
+			this.balance.toFixed(2)
+		);
+		this.transactions.push(newTransaction);
 	}
 
 	withdraw(amount, date) {
@@ -28,17 +27,15 @@ class Account {
 				"You do not have enough balance to make this withdrawal"
 			);
 		}
-		if (amount > 0) {
-			this.balance -= amount;
-			const dateString = this.dateStringFormatter(date);
-			const newTransaction = new Transaction(
-				dateString,
-				null,
-				amount.toFixed(2),
-				this.balance.toFixed(2)
-			);
-			this.transactions.push(newTransaction);
-		}
+		this.balance -= amount;
+		const dateString = this.dateStringFormatter(date);
+		const newTransaction = new Transaction(
+			dateString,
+			null,
+			amount.toFixed(2),
+			this.balance.toFixed(2)
+		);
+		this.transactions.push(newTransaction);
 	}
 
 	printStatement() {
@@ -73,6 +70,9 @@ class Account {
 		}
 		if (typeof amount !== "number") {
 			throw new Error("amount must be a number");
+		}
+		if (amount <= 0) {
+			throw new Error("Amount must be greater than 0");
 		}
 	}
 }

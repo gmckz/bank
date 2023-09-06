@@ -78,7 +78,7 @@ date || credit || debit || balance
 
 # Planning / Design
 
-I have used an object oriented approach to the design of this program. And strictly followed the TDD process while implementing it.
+I have used an object oriented approach to the design of this program. And strictly followed the TDD process while implementing it. My program consists of an Account class that holds the balance and a list of transactions, and deposit, withdraw and printStatment functions; and a Transaction class that holds information about a transaction.
 
 ## User stories
 

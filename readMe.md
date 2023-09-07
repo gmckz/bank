@@ -38,15 +38,19 @@ $ node
 const Account = require("./account");
 const myAccount = new Account();
 
-// Make a deposit. The deposit function takes 2 arguments: amount (number), date (a javascript Date object)
+// Make a deposit. The deposit function takes 2 arguments: amount (number), date (a javascript Date object). If no date is given as an argument it will default to the current date.
 myAccount.deposit(1000, new Date("2023-01-10"));
 myAccount.deposit(2000, new Date("2023-01-13"));
 
-// Make a withdrawal. The withdraw function takes 2 arguments: amount (number), date (a javascript Date object)
+// Make a withdrawal. The withdraw function takes 2 arguments: amount (number), date (a javascript Date object. If no date is given as an argument it will default to the current date.
 myAccount.withdraw(500, new Date("2023-01-14"));
 
+// Create a statement
+const Statement = require("./statement");
+const myStatement = new Statement(myAccount);
+
 // Print a statement of transactions
-myAccount.printStatement();
+myStatement.printStatement();
 ```
 
 Screenshot of REPL

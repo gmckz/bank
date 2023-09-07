@@ -40,27 +40,6 @@ class Account {
 		this.transactions.push(newTransaction);
 	}
 
-	printStatement() {
-		const statementHeader = "date || credit || debit || balance";
-		let statement = statementHeader;
-		if (!this.transactions.length) {
-			return statement;
-		}
-
-		const statementTransactions = this.transactions.toReversed();
-		statementTransactions.forEach((transaction) => {
-			if (transaction.credit === null) {
-				const stringTransaction = `\n${transaction.date} || || ${transaction.debit} || ${transaction.balance}`;
-				statement += stringTransaction;
-			} else {
-				const stringTransaction = `\n${transaction.date} || ${transaction.credit} || || ${transaction.balance}`;
-				statement += stringTransaction;
-			}
-		});
-		console.log(statement);
-		return statement;
-	}
-
 	getBalance() {
 		let balance = 0;
 		if (this.transactions.length) {

@@ -2,38 +2,40 @@ const Transaction = require("./transaction");
 
 class Account {
 	constructor() {
-		this.balance = 0;
 		this.transactions = [];
 	}
 
 	deposit(amount, date) {
 		this.validateDateAndAmount(date, amount);
 
-		this.balance += amount;
+		let balance = this.getBalance();
+		balance += amount;
+
 		const dateString = this.dateStringFormatter(date);
 		const newTransaction = new Transaction(
 			dateString,
 			amount.toFixed(2),
 			null,
-			this.balance.toFixed(2)
+			balance.toFixed(2)
 		);
 		this.transactions.push(newTransaction);
 	}
 
 	withdraw(amount, date) {
 		this.validateDateAndAmount(date, amount);
-		if (this.balance < amount) {
+		let balance = this.getBalance();
+		if (balance < amount) {
 			throw new Error(
 				"You do not have enough balance to make this withdrawal"
 			);
 		}
-		this.balance -= amount;
+		balance -= amount;
 		const dateString = this.dateStringFormatter(date);
 		const newTransaction = new Transaction(
 			dateString,
 			null,
 			amount.toFixed(2),
-			this.balance.toFixed(2)
+			balance.toFixed(2)
 		);
 		this.transactions.push(newTransaction);
 	}
@@ -57,6 +59,17 @@ class Account {
 		});
 		console.log(statement);
 		return statement;
+	}
+
+	getBalance() {
+		let balance = 0;
+		if (this.transactions.length) {
+			const lastTransactionIndex = this.transactions.length - 1;
+			balance = parseFloat(
+				this.transactions[lastTransactionIndex].balance
+			);
+		}
+		return balance;
 	}
 
 	dateStringFormatter(date) {

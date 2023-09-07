@@ -14,16 +14,15 @@ jest.mock("./transaction", () => {
 
 test("an instance of Account initially has a balance of 0 and transactions is an empty array", () => {
 	const myAccount = new Account();
-	expect(myAccount.balance).toBe(0);
 	expect(myAccount.transactions).toEqual([]);
 });
 
-test("calling deposit(amount, date) adds the amount to the balance and adds a transaction instance to the transactions array", () => {
+test("calling deposit(amount, date) adds the calculates the new balance and adds a transaction instance to the transactions array", () => {
 	const myAccount = new Account();
 	myAccount.deposit(1000, new Date("2023-09-04"));
-	expect(myAccount.balance).toBe(1000);
 	expect(myAccount.transactions.length).toBe(1);
 	expect(myAccount.transactions[0]).toBeInstanceOf(Transaction);
+	expect(myAccount.transactions[0].balance).toBe("1000.00");
 });
 
 test("calling deposit(0) throws an error", () => {
@@ -50,9 +49,10 @@ test("calling withdraw(amount, date) when there is enough balance subtracts the 
 	const myAccount = new Account();
 	myAccount.deposit(100, new Date("2023-09-04"));
 	myAccount.withdraw(100, new Date("2023-09-05"));
-	expect(myAccount.balance).toBe(0);
 	expect(myAccount.transactions.length).toBe(2);
 	expect(myAccount.transactions[1]).toBeInstanceOf(Transaction);
+	expect(myAccount.transactions[0].balance).toBe("100.00");
+	expect(myAccount.transactions[1].balance).toBe("0.00");
 });
 
 test("calling withdraw(amount, date) when there is not enough balance in the account throws an error", () => {

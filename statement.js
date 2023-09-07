@@ -6,9 +6,7 @@ class Statement {
 	printStatement() {
 		const statementHeader = "date || credit || debit || balance";
 		let statement = statementHeader;
-		if (!this.account.transactions.length) {
-			return statement;
-		}
+		if (!this.account.transactions.length) return statement;
 
 		const statementTransactions = this.account.transactions.toReversed();
 		statementTransactions.forEach((transaction) => {

@@ -7,11 +7,12 @@ class Account {
 
 	deposit(amount, date = new Date()) {
 		this.validateDateAndAmount(date, amount);
-
 		let balance = this.getBalance();
+
 		balance += amount;
 
 		const dateString = this.dateStringFormatter(date);
+
 		const newTransaction = new Transaction(
 			dateString,
 			amount.toFixed(2),
@@ -24,11 +25,10 @@ class Account {
 	withdraw(amount, date = new Date()) {
 		this.validateDateAndAmount(date, amount);
 		let balance = this.getBalance();
-		if (balance < amount) {
+		if (balance < amount)
 			throw new Error(
 				"You do not have enough balance to make this withdrawal"
 			);
-		}
 		balance -= amount;
 		const dateString = this.dateStringFormatter(date);
 		const newTransaction = new Transaction(
@@ -57,15 +57,11 @@ class Account {
 	}
 
 	validateDateAndAmount(date, amount) {
-		if (!date instanceof Date || isNaN(date)) {
+		if (!date instanceof Date || isNaN(date))
 			throw new Error("Date must be provided as a date object");
-		}
-		if (typeof amount !== "number") {
+		if (typeof amount !== "number")
 			throw new Error("amount must be a number");
-		}
-		if (amount <= 0) {
-			throw new Error("Amount must be greater than 0");
-		}
+		if (amount <= 0) throw new Error("Amount must be greater than 0");
 	}
 }
 

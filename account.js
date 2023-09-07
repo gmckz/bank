@@ -5,7 +5,7 @@ class Account {
 		this.transactions = [];
 	}
 
-	deposit(amount, date) {
+	deposit(amount, date = new Date()) {
 		this.validateDateAndAmount(date, amount);
 
 		let balance = this.getBalance();
@@ -21,7 +21,7 @@ class Account {
 		this.transactions.push(newTransaction);
 	}
 
-	withdraw(amount, date) {
+	withdraw(amount, date = new Date()) {
 		this.validateDateAndAmount(date, amount);
 		let balance = this.getBalance();
 		if (balance < amount) {

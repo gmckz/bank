@@ -18,12 +18,23 @@ test("an instance of Account initially has a balance of 0 and transactions is an
 	expect(myAccount.getBalance()).toBe(0);
 });
 
-test("calling deposit(amount, date) adds the calculates the new balance and adds a transaction instance to the transactions array", () => {
+test("calling deposit(amount, date) calculates the new balance and adds a transaction instance to the transactions array", () => {
 	const myAccount = new Account();
 	myAccount.deposit(1000, new Date("2023-09-04"));
 	expect(myAccount.transactions.length).toBe(1);
 	expect(myAccount.transactions[0]).toBeInstanceOf(Transaction);
 	expect(myAccount.getBalance()).toBe(1000);
+});
+
+test("calling deposit(amount) calculcates the new balance and adds a transaction instance to the transactions array with the current date", () => {
+	const myAccount = new Account();
+	const date = new Date().toLocaleString("en-GB");
+	const dateString = date.split(",")[0];
+	myAccount.deposit(1000);
+	expect(myAccount.transactions.length).toBe(1);
+	expect(myAccount.transactions[0]).toBeInstanceOf(Transaction);
+	expect(myAccount.getBalance()).toBe(1000);
+	expect(myAccount.transactions[0].date).toBe(dateString);
 });
 
 test("calling deposit(0) throws an error", () => {
@@ -48,6 +59,18 @@ test("calling withdraw(amount, date) when there is enough balance subtracts the 
 	expect(myAccount.transactions.length).toBe(2);
 	expect(myAccount.transactions[1]).toBeInstanceOf(Transaction);
 	expect(myAccount.getBalance()).toBe(0);
+});
+test("calling withdraw(amount) when there is enough balance subtracts the amount from the balance and adds a transaction with the current date to the transactions array", () => {
+	const myAccount = new Account();
+	const date = new Date().toLocaleString("en-GB");
+	const dateString = date.split(",")[0];
+	myAccount.deposit(100);
+	expect(myAccount.getBalance()).toBe(100);
+	myAccount.withdraw(100);
+	expect(myAccount.transactions.length).toBe(2);
+	expect(myAccount.transactions[1]).toBeInstanceOf(Transaction);
+	expect(myAccount.getBalance()).toBe(0);
+	expect(myAccount.transactions[1].date).toBe(dateString);
 });
 
 test("calling withdraw(amount, date) when there is not enough balance in the account throws an error", () => {
